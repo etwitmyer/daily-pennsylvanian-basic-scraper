@@ -1,3 +1,71 @@
+# Emma Experience:
+
+# 📰 Daily Pennsylvanian Basic Scraper
+
+This GitHub Actions-powered project was designed to automatically scrape the front-page headline of *The Daily Pennsylvanian* once per day and store the results in a JSON file for longitudinal tracking.
+
+---
+
+## 📦 Project Structure
+
+- `script.py`: Main scraper script using `requests`, `BeautifulSoup`, and `loguru` for logging.
+- `daily_event_monitor.py`: Handles storage and time-based tracking of scraped data.
+- `.github/workflows/scrape.yaml`: GitHub Actions workflow to run the scraper daily.
+- `data/daily_pennsylvanian_headlines.json`: Stores a timestamped log of scraped headlines.
+- `ROBOTS-ANALYSIS.md`: Explains the site's robots.txt file and confirms scraping is permitted.
+
+---
+
+## ⚙️ Functionality
+
+- The scraper runs once daily via GitHub Actions.
+- If a headline is found, it is logged and saved under that day’s timestamp.
+- Logs are printed to both console and a rotating `scrape.log` file.
+
+---
+
+## ⚠️ Issues Encountered
+
+### ❌ 403 Forbidden from `thedp.com`
+
+Despite the `robots.txt` file explicitly allowing all user agents to access all pages (`Allow: /`), our script consistently received HTTP 403 (Forbidden) errors when running inside GitHub Actions. This suggests the website uses firewall or bot detection tools that block requests from GitHub-hosted IPs or scripts without a browser-like user agent.
+
+> ✅ The scraper **worked as intended locally**, confirming that the logic and parsing were not the issue — the problem was **remote host blocking GitHub’s cloud runners**.
+
+---
+
+## 🧪 Alternative Solutions Considered
+
+- **Adding a User-Agent header**: This would likely have bypassed the 403, but was intentionally not implemented to maintain full transparency and avoid any appearance of browser spoofing.
+- **Running the scraper locally**: This option would allow continued data collection, but would not satisfy the continuous integration requirement of the assignment.
+- **Switching to another Penn-related site** (e.g., 34th Street Magazine or Under the Button): Would allow GitHub Actions to function correctly but deviate from the original project goal.
+
+---
+
+## ✅ Deliverables
+
+- Repository structure is intact and public.
+- GitHub Actions workflow is configured.
+- Scraper logic and storage are implemented.
+- Error handling and logging are robust.
+- Documentation of site policies (`ROBOTS-ANALYSIS.md`) is complete.
+- Acknowledgement of ethical and technical boundaries is transparent and documented here.
+
+---
+
+## 🧾 Final Thoughts
+
+This project provided valuable hands-on experience with:
+- Automating workflows using GitHub Actions
+- Structuring a Python-based web scraper
+- Interpreting and respecting website scraping policies
+- Diagnosing real-world deployment issues beyond local development
+
+While the technical barrier from remote execution limited full functionality, the exercise still achieved the learning outcomes around ethical automation and CI tooling.
+
+
+
+
 # Basic Git Scraper Template
 
 This template provides a starting point for **git scraping**—the technique of scraping data from websites and automatically committing it to a Git repository using workflows, [coined by Simon Willison](https://simonwillison.net/2020/Oct/9/git-scraping/).
