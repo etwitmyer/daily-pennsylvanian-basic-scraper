@@ -26,10 +26,17 @@ def scrape_data_point():
 
     if req.ok:
         soup = bs4.BeautifulSoup(req.text, "html.parser")
+        # debug
+        for a in soup.find_all("a"):
+            if "class" in a.attrs:
+                loguru.logger.info(f"Link classes: {a['class']} — Text: {a.text.strip()}")
+                
         target_element = soup.find("a", class_="frontpage-link")
         data_point = "" if target_element is None else target_element.text
         loguru.logger.info(f"Data point: {data_point}")
         return data_point
+
+    
 
 
 if __name__ == "__main__":
