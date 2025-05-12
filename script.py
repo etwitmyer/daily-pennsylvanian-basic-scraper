@@ -78,6 +78,11 @@ if __name__ == "__main__":
 
     print_tree(os.getcwd())
 
+    # Ensure JSON file exists
+    if not os.path.exists(dem.file_path):
+        with open(dem.file_path, "w") as f:
+            f.write("{}")
+    
     loguru.logger.info("Printing contents of data file {}".format(dem.file_path))
     with open(dem.file_path, "r") as f:
         loguru.logger.info(f.read())
